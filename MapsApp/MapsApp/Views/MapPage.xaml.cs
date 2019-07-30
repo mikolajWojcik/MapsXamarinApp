@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace MapsApp.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class MapPage : ContentPage
     {
-        public MainPage()
+        public MapPage()
         {
             InitializeComponent();
         }

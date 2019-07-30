@@ -8,12 +8,13 @@ using System.Text;
 
 namespace MapsApp.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    public class MapPageViewModel : ViewModelBase
     {
-        public MainPageViewModel(INavigationService navigationService)
+        public MapPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = "Main Page";
+            Title = "Map Page";
+
         }
     }
 }
