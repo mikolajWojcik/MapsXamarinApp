@@ -4,6 +4,9 @@ using MapsApp.ViewModels;
 using MapsApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System;
+using MapsApp.Services;
+using MapsApp.Services.Interfaces;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MapsApp
@@ -27,6 +30,18 @@ namespace MapsApp
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            RegisterServices(containerRegistry);
+            RegisterViewsForNavigation(containerRegistry);
+        }
+
+        private void RegisterServices(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterSingleton<IGooglePlacesService, GooglePlacesService>();
+            containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
+        }
+
+        private static void RegisterViewsForNavigation(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
