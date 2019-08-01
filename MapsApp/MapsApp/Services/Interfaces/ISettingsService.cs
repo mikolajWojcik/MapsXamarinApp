@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MapsApp.Services.Interfaces
 {
-    public interface ISettingsService
+    public interface ISettingsService 
     {
         Task<IEnumerable<Place>> LoadPlacesAsync();
+
+        Task SavePlacesAsync(IEnumerable<Place> places);
     }
 }

@@ -26,19 +26,21 @@ namespace MapsApp
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync($"{nameof(MapPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             RegisterServices(containerRegistry);
             RegisterViewsForNavigation(containerRegistry);
+            
         }
 
         private void RegisterServices(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IGooglePlacesService, GooglePlacesService>();
             containerRegistry.RegisterSingleton<ISettingsService, SettingsService>();
+            containerRegistry.RegisterSingleton<IPlacesStorage, PlacesStorage>();
         }
 
         private static void RegisterViewsForNavigation(IContainerRegistry containerRegistry)

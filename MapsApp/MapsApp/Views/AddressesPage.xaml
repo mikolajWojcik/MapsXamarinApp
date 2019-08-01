@@ -1,8 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="MapsApp.Views.AddressesPage">
-  
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:converter="clr-namespace:MapsApp.Converters"
+    x:Class="MapsApp.Views.AddressesPage"
+    Title="{Binding Title}">
+    <ContentPage.Resources>
+        <converter:EnumToDisplayNameConverter x:Key="EnumConverter"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="5">
+            <Entry 
+                x:Name="textEntry"
+                Margin="15,0,15,0"
+                Placeholder="Please enter address"
+                HorizontalOptions="FillAndExpand"
+                Text="{Binding Text}">
+                <Entry.Behaviors>
+                    <b:EventToCommandBehavior
+                        EventName="TextChanged"
+                        Command="{Binding SearchAddressCommand}"
+                        CommandParameter="{Binding Source={x:Reference textEntry}, Path=Text}"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Label 
+                Text="{Binding PlacesService.CurrentRequestStatus, Converter={StaticResource EnumConverter}}"
+                IsVisible="{Binding IsLableVisible}">
+            </Label>
+            <ListView
+                x:Name="addressesList"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                ItemsSource="{Binding Places}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell 
+                            Text="{Binding Name}" 
+                            Detail="{Binding FormattedAddres}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding PlaceSelectedCommand}"
+                        EventArgsParameterPath="SelectedItem"/>
+                </ListView.Behaviors>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

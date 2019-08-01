@@ -1,4 +1,5 @@
 ﻿using MapsApp.Models;
+using MapsApp.Models.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -17,6 +18,6 @@ namespace MapsApp.DTO
         public IEnumerable<Place> Places { get; set; } 
 
         [JsonProperty("status"), JsonConverter(typeof(StringEnumConverter))]
-        public HttpStatusCode Status { get; set; }
+        public GoogleApiStatusCode Status { get; set; }
     }
 }
